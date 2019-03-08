@@ -1,0 +1,58 @@
+{
+  "name": "vue-markdown-it-toc",
+  "version": "1.0.0",
+  "description": "vue markdown-it toc components",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muzi131313/vue-markdown-it-toc.git"
+  },
+  "keywords": [
+    "markdown-it",
+    "toc",
+    "vue"
+  ],
+  "author": "muzi131313",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/muzi131313/vue-markdown-it-toc/issues"
+  },
+  "homepage": "https://github.com/muzi131313/vue-markdown-it-toc#readme",
+  "devDependencies": {
+    "@vue/cli-plugin-eslint": "^3.2.1",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "autoprefixer": "^9.4.3",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "css-loader": "^2.0.1",
+    "cssnano": "^4.1.7",
+    "eslint": "^5.10.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.11.0",
+    "postcss": "^7.0.7",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.5.0",
+    "sass-loader": "^7.1.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "url-loader": "^1.1.2",
+    "vue": "^2.5.21",
+    "vue-loader": "^15.4.2",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.5.21",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2"
+  }
+}
