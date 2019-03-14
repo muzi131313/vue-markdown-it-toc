@@ -219,10 +219,11 @@ $offset: $sider-bar-top - $header-height;
     list-style-type: none;
     margin: 0;
     height: 100%;
+    position: relative;
     &:before {
       content: '';
       position: absolute;
-      top: $offset;
+      top: 0;
       left: 2px;
       bottom: 0;
       width: 2px;
