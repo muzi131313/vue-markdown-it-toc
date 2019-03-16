@@ -3,6 +3,7 @@
   </div>
 </template>
 <script>
+import 'github-markdown-css/github-markdown.css'
 import MarkdownIt from 'markdown-it'
 import markdownItAttrs from 'markdown-it-attrs'
 import markdownItPlayground from 'markdown-it-playground'
@@ -94,6 +95,8 @@ export default {
       if (!tocWrap) {
         return console.warn('no toc wrap document')
       }
+      tocWrap.style.paddingTop = `${this.offset}px`
+
       const tocDoms = tocWrap ? tocWrap.querySelectorAll('a') || [] : []
       this.tocDoms = tocDoms
       this.tocs = Array.prototype.slice
@@ -190,9 +193,10 @@ export default {
 </script>
 
 <style lang="scss">
-// TODO: offset需要动态设置
-// offset
-$offset: $sider-bar-top - $header-height;
+$sliver: #ebedef;
+$black: #333;
+$active-color: rgb(25, 149, 249);
+
 .mark {
   padding-right: 180px;
   padding-bottom: 30px;
@@ -200,9 +204,8 @@ $offset: $sider-bar-top - $header-height;
 .table-of-contents {
   position: fixed;
   right: 0;
-  height: calc(100% - #{$header-height});
-  top: $header-height;
-  padding-top: $offset;
+  height: 100%;
+  top: 0;
   @media (min-width: 768px) {
     right: calc((100% - 750px)/2);
   }

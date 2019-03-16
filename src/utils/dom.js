@@ -2,7 +2,7 @@
 
 import Vue from 'vue'
 
-import { type } from '@/util/tools'
+import { type } from './tools'
 
 const isServer = Vue.prototype.$isServer
 // console.log('isServer: ', isServer)

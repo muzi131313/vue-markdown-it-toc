@@ -7,6 +7,7 @@
     "example": "example"
   },
   "scripts": {
+    "build": "rm -rf ./dist && webpack --colors --hide-modules --mode=production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -56,6 +57,8 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "github-markdown-css": "^3.0.1",
+    "highlight.js": "^9.15.6",
     "markdown-it": "^8.4.2",
     "markdown-it-anchor": "^5.0.2",
     "markdown-it-attrs": "^2.3.2",

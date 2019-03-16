@@ -7,11 +7,11 @@ var VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   devtool: 'cheap-module-source-map',
-  entry: './src/drag-slider/index.js',
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'index.js',
-    library: 'vue-drag-slider',
+    library: 'vue-markdown-it-toc',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
@@ -25,7 +25,8 @@ module.exports = {
         use: 'babel-loader',
         // include: __dirname,
         exclude: /node_modules/
-      }, {
+      },
+      {
         test: /\.vue$/,
         use: 'vue-loader',
         // include: __dirname,
@@ -37,7 +38,8 @@ module.exports = {
         //     }
         //   }
         // }
-      }, {
+      },
+      {
         test: /\.scss$/,
         use: [
           'vue-style-loader',
@@ -50,6 +52,12 @@ module.exports = {
             //   data: `$color: red;`
             // }
           }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'css-loader'
         ]
       }
     ]
