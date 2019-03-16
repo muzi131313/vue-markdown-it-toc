@@ -1,7 +1,7 @@
 {
   "name": "vue-markdown-it-toc",
   "version": "1.0.0",
-  "description": "vue markdown-it toc components",
+  "description": "vue markdown-it toc plugin",
   "main": "index.js",
   "directories": {
     "example": "example"
