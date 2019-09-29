@@ -188,7 +188,6 @@ export default {
     },
     // 根据toc获取toc关联的dom
     getDomContentByTocDom(tocDom) {
-      console.log('tocDom: ', tocDom)
       const id = tocDom.getAttribute('href')
       return document.querySelector(id)
     },
