@@ -31,6 +31,7 @@ const md = new MarkdownIt({
 })
 
 // makrdown链接正则
+// 链接: https://www.zhangxinxu.com/wordpress/2010/04/javascript%E5%AE%9E%E7%8E%B0http%E5%9C%B0%E5%9D%80%E8%87%AA%E5%8A%A8%E6%A3%80%E6%B5%8B%E5%B9%B6%E6%B7%BB%E5%8A%A0url%E9%93%BE%E6%8E%A5/
 const LINK_REG = /\[([\w]+)\]\(((http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+))\)/g
 
 md.use(markdownItAttrs)
