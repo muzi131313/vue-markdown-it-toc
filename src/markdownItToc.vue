@@ -30,13 +30,31 @@ const md = new MarkdownIt({
   langPrefix: 'blog-'
 })
 
+// makrdown链接正则
+const LINK_REG = /\[([\w]+)\]\(((http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+))\)/g
+
 md.use(markdownItAttrs)
 md.use(markdownItPlayground)
 md.use(markdownItHighLight)
 
 md.use(markdownAnchor)
 md.use(markdownTableOfContent, {
-  includeLevel: [1, 2, 3]
+  includeLevel: [1, 2, 3],
+  format: function(headingAsString) {
+    if (LINK_REG.test(headingAsString)) {
+      headingAsString = headingAsString.replace(LINK_REG, RegExp.$1)
+    }
+    return headingAsString
+  },
+  transformLink: function(link) {
+    if (link) {
+      link = decodeURIComponent(link)
+      if (LINK_REG.test(link)) {
+        link = link.replace(LINK_REG, RegExp.$1)
+      }
+    }
+    return link
+  }
 })
 
 // toc容器的类
@@ -170,6 +188,7 @@ export default {
     },
     // 根据toc获取toc关联的dom
     getDomContentByTocDom(tocDom) {
+      console.log('tocDom: ', tocDom)
       const id = tocDom.getAttribute('href')
       return document.querySelector(id)
     },
