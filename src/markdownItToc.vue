@@ -167,7 +167,7 @@ export default {
     // 滚动事件
     scroll() {
       if (this.firstInit) {
-        return console.log('this was the frist init!')
+        return console.warn('this was the frist init!')
       }
       const tocDoms = this.tocDoms
       let isFind = false

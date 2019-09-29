@@ -4,8 +4,10 @@
 var path = require('path')
 // var webpack = require('webpack')
 var VueLoaderPlugin = require('vue-loader/lib/plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = {
+  mode: 'production',
   devtool: 'cheap-module-source-map',
   entry: './src/index.js',
   output: {
@@ -17,6 +19,23 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.vue']
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        // 开启缓存
+        cache: true,
+        // 开启多线程压缩
+        parallel: true,
+        terserOptions: {
+          compress: {
+            // 只删除console.log, 注意: ie9不支持console相关api
+            pure_funcs: [ 'console.log' ]
+          }
+        }
+      })
+    ]
   },
   module: {
     rules: [
