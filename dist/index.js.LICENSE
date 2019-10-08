@@ -1,5 +1,11 @@
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
 /*!
  * Vue.js v2.6.8
  * (c) 2014-2019 Evan You
