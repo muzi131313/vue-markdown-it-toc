@@ -47,6 +47,7 @@
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.5.0",
     "sass-loader": "^7.1.0",
+    "sass-resources-loader": "^2.0.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "terser-webpack-plugin": "^2.1.2",
@@ -64,6 +65,8 @@
     "markdown-it": "^8.4.2",
     "markdown-it-anchor": "^5.0.2",
     "markdown-it-attrs": "^2.3.2",
-    "markdown-it-playground": "0.0.5"
+    "markdown-it-checkbox": "^1.1.0",
+    "markdown-it-playground": "0.0.5",
+    "pinyin": "^2.9.0"
   }
 }

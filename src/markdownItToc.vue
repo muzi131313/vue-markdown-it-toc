@@ -5,10 +5,18 @@
 <script>
 import 'github-markdown-css/github-markdown.css'
 import MarkdownIt from 'markdown-it'
+// 属性添加
 import markdownItAttrs from 'markdown-it-attrs'
+// 代码实例演示
 import markdownItPlayground from 'markdown-it-playground'
+// 定位跳转
 import markdownAnchor from 'markdown-it-anchor'
+// 侧边栏基础样式生成
+// https://www.npmjs.com/package/markdown-it-toc-done-right
 import markdownTableOfContent from 'markdown-it-table-of-contents'
+import markdownItCheckbox from 'markdown-it-checkbox'
+// 汉语转拼音
+import pinyin from 'pinyin'
 
 import {
   on,
@@ -32,27 +40,104 @@ const md = new MarkdownIt({
 
 // makrdown链接正则
 // 链接: https://www.zhangxinxu.com/wordpress/2010/04/javascript%E5%AE%9E%E7%8E%B0http%E5%9C%B0%E5%9D%80%E8%87%AA%E5%8A%A8%E6%A3%80%E6%B5%8B%E5%B9%B6%E6%B7%BB%E5%8A%A0url%E9%93%BE%E6%8E%A5/
-const LINK_REG = /\[([\w]+)\]\(((http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+))\)/g
+// const LINK_REG = /\[([\w]+)\]\(((http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+))\)/g
+// https://www.ancii.com/at6zg8dbq/
+const LINK_REG = /\[([\s\S]*?)\]\([\s\S]*?\)/
+// 复杂正则
+// eslint-disable-next-line
+const SPECIAL_REG = /[:.、+,/\[\]\(\)]/g
+
+// 替换掉数字
+const NUM_REG = /^\d/
+
+// 替换链接(多个)
+const replaceLink = link => {
+  if (link) {
+    link = link.trim()
+  }
+  if (LINK_REG.test(link)) {
+    link = link.replace(LINK_REG, RegExp.$1)
+    link = replaceLink(link)
+  }
+  return link
+}
+
+// 转换拼音
+const transChineseToPinYin = chinese => {
+  if (!chinese) return ''
+
+  const linkChinese = decodeURIComponent(chinese)
+  const pinYin = pinyin(linkChinese, {
+    style: pinyin.STYLE_NORMAL
+  })
+  const pinYinString = pinYin.join('')
+  return pinYinString
+}
+
+// 处理链接
+const handleLink = link => {
+  if (!link) {
+    return link
+  }
+
+  link = link.trim()
+
+  link = transChineseToPinYin(link)
+
+  // 处理markdown链接
+  if (LINK_REG.test(link)) {
+    link = replaceLink(link)
+  }
+
+  // 特殊字符
+  if (SPECIAL_REG.test(link)) {
+    link = link.replace(SPECIAL_REG, '-')
+  }
+
+  // 数字
+  if (NUM_REG.test(link)) {
+    link = link.replace(NUM_REG, '-')
+  }
+
+  return link
+}
 
 md.use(markdownItAttrs)
 md.use(markdownItPlayground)
 md.use(markdownItHighLight)
 
-md.use(markdownAnchor)
+md.use(markdownItCheckbox)
+
+// makrdown中链接
+md.use(markdownAnchor, {
+  // 处理链接
+  callback(val) {
+    const attrs = val.attrs
+    let value = handleLink(attrs[0][1])
+
+    attrs[0][1] = value
+    return val
+  }
+})
+
+// 侧边栏链接
 md.use(markdownTableOfContent, {
   includeLevel: [1, 2, 3],
-  format: function(headingAsString) {
-    if (LINK_REG.test(headingAsString)) {
-      headingAsString = headingAsString.replace(LINK_REG, RegExp.$1)
+  format: function(header) {
+    if (header) {
+      header = decodeURIComponent(header)
+      header = replaceLink(header)
     }
-    return headingAsString
+    return header
   },
   transformLink: function(link) {
     if (link) {
-      link = decodeURIComponent(link)
-      if (LINK_REG.test(link)) {
-        link = link.replace(LINK_REG, RegExp.$1)
-      }
+      // 处理汉语
+      link = link.substr(1)
+
+      link = handleLink(link)
+      // console.log('link: ', link)
+      return `#${link}`
     }
     return link
   }
@@ -201,6 +286,9 @@ export default {
     // 根据toc dom进行页面的滚动操作
     scrollByTocDom(tocDom) {
       const contentDom = this.getDomContentByTocDom(tocDom)
+      if (!contentDom) {
+        return
+      }
       const top = contentDom.offsetTop
       window.scrollTo(0, top - this.offset)
     }
@@ -215,9 +303,10 @@ export default {
 $sliver: #ebedef;
 $black: #333;
 $active-color: rgb(25, 149, 249);
+$menu-width: 200px;
 
 .mark {
-  padding-right: 180px;
+  padding-right: $menu-width + 20;
   padding-bottom: 30px;
 }
 .table-of-contents {
@@ -225,6 +314,7 @@ $active-color: rgb(25, 149, 249);
   right: 0;
   height: 100%;
   top: 0;
+  max-width: $menu-width;
   @media (min-width: 768px) {
     right: calc((100% - 750px)/2);
   }
