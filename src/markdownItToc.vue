@@ -183,7 +183,11 @@ export default {
       // toc dom
       tocDoms: null,
       // 第一次初始化
-      firstInit: true
+      firstInit: true,
+      // toc容器dom
+      tocContainer: null,
+      // 侧边栏容器高度
+      tocHeight: 0
     }
   },
   mounted() {
@@ -203,6 +207,7 @@ export default {
 
       const tocDoms = tocWrap ? tocWrap.querySelectorAll('a') || [] : []
       this.tocDoms = tocDoms
+      // 侧边栏dom数组
       this.tocs = Array.prototype.slice
         .call(tocDoms)
         .map((toc, index) => {
@@ -215,6 +220,12 @@ export default {
             active
           }
         })
+      // 侧边栏高度
+      const container = document.querySelector('.table-of-contents')
+      const height = container.offsetHeight - 30 - 40 * 2
+      this.tocHeight = height
+      this.tocContainer = container
+      // 初始化标记
       this.firstInit = true
       setTimeout(() => {
         this.firstInit = false
@@ -250,6 +261,20 @@ export default {
         }
       })
     },
+    // 同步菜单栏容器位置
+    // https://www.zhangxinxu.com/wordpress/2018/02/container-scroll-position-hold/
+    syncMenuContainer() {
+      const tocHeight = this.tocHeight
+      const activeDom = this.tocContainer.querySelector(`.${activeClass}`)
+      const top = activeDom.offsetTop
+      if (!top) {
+        return
+      }
+      const offset = tocHeight - top
+      if (offset < 100) {
+        this.tocContainer.scrollTop = 100 - offset
+      }
+    },
     // 滚动事件
     scroll() {
       if (this.firstInit) {
@@ -271,6 +296,7 @@ export default {
         }
       })
       this.syncActiveDom()
+      this.syncMenuContainer()
     },
     // 根据toc获取toc关联的dom
     getDomContentByTocDom(tocDom) {
@@ -314,6 +340,12 @@ $menu-width: 200px;
   right: 0;
   height: 100%;
   top: 0;
+  // Firefox
+  // http://caibaojian.com/hide-scrollbar.html
+  overflow-y: -moz-scrollbars-none;
+  // IE10+
+  -ms-overflow-style: none;
+  overflow-y: auto;
   max-width: $menu-width;
   @media (min-width: 768px) {
     right: calc((100% - 750px)/2);
@@ -326,6 +358,10 @@ $menu-width: 200px;
   }
   @media (max-width: 768px) {
     display: none;
+  }
+  // Chrome和Safari
+  &::-webkit-scrollbar {
+    width: 0 !important;
   }
   & > ul {
     list-style-type: none;
