@@ -6,7 +6,9 @@ markdown-it toc components
 - support set offset to the header
 
 ### usage
-- [vue-markdown-it-toc example](https://gitee.com/muzi131313/markdown-it-toc-demo)
+- example
+  - [vue-markdown-it-toc github](https://gitee.com/muzi131313/markdown-it-toc-demo)
+  - [vue-markdown-it-toc online demo](https://muzi131313.github.io/vue-markdown-it-toc-demo/)
 - import the component plugins
   ````
   import Vue from 'vue'
