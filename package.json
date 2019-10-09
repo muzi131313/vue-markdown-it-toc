@@ -40,7 +40,6 @@
     "cssnano": "^4.1.7",
     "eslint": "^5.10.0",
     "eslint-plugin-vue": "^5.0.0",
-    "markdown-it-table-of-contents": "^0.4.4",
     "node-sass": "^4.11.0",
     "postcss": "^7.0.7",
     "postcss-import": "^12.0.1",
@@ -66,6 +65,7 @@
     "markdown-it-anchor": "^5.0.2",
     "markdown-it-attrs": "^2.3.2",
     "markdown-it-checkbox": "^1.1.0",
+    "markdown-it-table-of-contents": "^0.4.4",
     "markdown-it-playground": "0.0.5",
     "pinyin": "^2.9.0"
   }
