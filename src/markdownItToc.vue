@@ -372,7 +372,7 @@ $menu-width: 200px;
       content: '';
       position: absolute;
       top: 0;
-      left: 2px;
+      left: 4px;
       bottom: 0;
       width: 2px;
       background-color: $sliver;
@@ -396,7 +396,7 @@ $menu-width: 200px;
     }
   }
   ul {
-    padding-left: 15px;
+    padding-left: 17px;
     li {
       cursor: pointer;
       a {
