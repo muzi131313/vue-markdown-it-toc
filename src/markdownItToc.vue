@@ -45,7 +45,7 @@ const md = new MarkdownIt({
 const LINK_REG = /\[([\s\S]*?)\]\([\s\S]*?\)/
 // 复杂正则
 // eslint-disable-next-line
-const SPECIAL_REG = /[:.、+,/\[\]\(\)]/g
+const SPECIAL_REG = /[:.、+,/\[\]\(\)`\\?]/g
 
 // 替换掉数字
 const NUM_REG = /^\d/
@@ -266,10 +266,10 @@ export default {
     syncMenuContainer() {
       const tocHeight = this.tocHeight
       const activeDom = this.tocContainer.querySelector(`.${activeClass}`)
-      const top = activeDom.offsetTop
-      if (!top) {
+      if (!activeDom) {
         return
       }
+      const top = activeDom.offsetTop || 0
       const offset = tocHeight - top
       if (offset < 100) {
         this.tocContainer.scrollTop = 100 - offset
