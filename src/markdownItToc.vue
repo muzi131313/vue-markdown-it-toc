@@ -263,7 +263,13 @@ export default {
     },
     // 同步菜单栏容器位置
     // https://www.zhangxinxu.com/wordpress/2018/02/container-scroll-position-hold/
-    syncMenuContainer() {
+    syncMenuContainer(scrollTop) {
+      // 返回顶部
+      if (scrollTop === 0) {
+        this.setToContainerPos(0)
+        return
+      }
+      // 未在顶部
       const tocHeight = this.tocHeight
       const activeDom = this.tocContainer.querySelector(`.${activeClass}`)
       if (!activeDom) {
@@ -272,14 +278,19 @@ export default {
       const top = activeDom.offsetTop || 0
       const offset = tocHeight - top
       if (offset < 100) {
-        this.tocContainer.scrollTop = 100 - offset
+        this.setToContainerPos(100 - offset)
       }
+    },
+    // 设置toc容器滚动位置
+    setToContainerPos(pos) {
+      this.tocContainer.scrollTop = pos
     },
     // 滚动事件
     scroll() {
       if (this.firstInit) {
         return console.warn('this was the frist init!')
       }
+      const scrollTop = this.getScrollTop()
       const tocDoms = this.tocDoms
       let isFind = false
       this.tocs.forEach((toc, index) => {
@@ -296,7 +307,18 @@ export default {
         }
       })
       this.syncActiveDom()
-      this.syncMenuContainer()
+      this.syncMenuContainer(scrollTop)
+    },
+    // 获取页面滚动高度
+    getScrollTop() {
+      // ie, firefox, chrome(2017)
+      // 声明DOCTYPE的, 有值
+      return document.documentElement.scrollTop
+        // safari, chrome(2017)
+        // 未声明DOCTYPE的, 有值
+        || document.body.scrollTop
+        // ie9+, safari, firefox(2017)
+        || window.pageYOffset
     },
     // 根据toc获取toc关联的dom
     getDomContentByTocDom(tocDom) {
