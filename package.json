@@ -61,7 +61,7 @@
   },
   "dependencies": {
     "github-markdown-css": "^3.0.1",
-    "highlight.js": "^9.15.6",
+    "highlight.js": "^10.1.2",
     "markdown-it": "^8.4.2",
     "markdown-it-anchor": "^5.0.2",
     "markdown-it-attrs": "^2.3.2",
